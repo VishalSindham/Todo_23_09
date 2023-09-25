@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import { saveNewTodo } from '../todos/todoSlice'
+
 const Header = () => {
   const [text, setText] = useState('')
   const dispatch = useDispatch()
@@ -12,7 +14,12 @@ const Header = () => {
     const trimmedText = text.trim()
     if (e.which === 13 && trimmedText) {
       // Dispatch the "todo added" action with this text
-      dispatch({ type: 'todos/todoAdded', payload: trimmedText })
+      // Create the thunk function with the text the user wrote
+      // const saveNewTodoThunk = saveNewTodo(trimmedText)
+      // dispatch({ type: 'todos/todoAdded', payload: trimmedText })
+      // then dispatch the thunk function itself
+      // dispatch(saveNewTodoThunk)
+      dispatch(saveNewTodo(trimmedText))
       // And clear out the text input
       setText('')
     }
@@ -29,6 +36,7 @@ const Header = () => {
       />
     </header>
   )
+  // return null
 }
 
 export default Header
