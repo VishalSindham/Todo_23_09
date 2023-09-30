@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 import { client } from '../../api/client'
 import { StatusFilters } from '../filters/filtersSlice'
@@ -112,6 +112,25 @@ export default function todosReducer(state = initialState, action) {
   }
 }
 
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState,
+  reducers: {
+    todoAdded(state, action) {
+      const todo = action.payload
+      state.entities[todo.id] = todo
+    },
+    todoToggled(state, action) {
+      const todoId = action.payload
+      const todo = state.entities[todoId]
+      todo.completed = !todo.completed
+    },
+  },
+})
+
+// using Redux toolkit
+export const { todoAdded, todoToggled } = todosSlice.actions
+
 // Action Creators
 // This action will create action object for todosloaded action
 export const todosLoaded = (todos) => {
@@ -123,12 +142,12 @@ export const todosLoaded = (todos) => {
 
 // This action will create action object for adding new todo action
 
-export const todoAdded = (todo) => {
-  return {
-    type: 'todos/todoAdded',
-    payload: todo,
-  }
-}
+// export const todoAdded = (todo) => {
+//   return {
+//     type: 'todos/todoAdded',
+//     payload: todo,
+//   }
+// }
 
 export const todosLoading = () => {
   return {
