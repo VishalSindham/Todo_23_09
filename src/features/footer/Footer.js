@@ -90,9 +90,12 @@ const Footer = () => {
 
   const { status, colors } = useSelector((state) => state.filters)
 
-  const onMarkCompletedClicked = () => dispatch({ type: 'todos/allCompleted' })
-  const onClearCompletedClicked = () =>
-    dispatch({ type: 'todos/completedCleared' })
+  const onMarkCompletedClicked = () => {
+    dispatch(allTodosCompleted())
+  }
+  const onClearCompletedClicked = () => {
+    dispatch(completedTodosCleared())
+  }
 
   const onColorChange = (color, changeType) =>
     dispatch(colorFilterChanged(color, changeType))
